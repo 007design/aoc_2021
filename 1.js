@@ -2,11 +2,23 @@ const depths = [103,112,111,133,132,128,136,138,133,136,137,140,144,156,155,172,
 
 let count = 0;
 
-const compare = function(i = 0) {
+const compare_one = function(i = 0) {
   if (i >= depths.length) return console.log(count);
   else if (depths[i+1] > depths[i]) {
     count = count+1;
   } 
-  compare(i+1);
+  compare_one(i+1);
 }
-compare();
+compare_one();
+
+count = 0;
+
+const compare_two = function(i = 0, last) {
+  if (i+2 >= depths.length) return console.log(count);
+  else {
+    const current = depths.slice(i, i+3).reduce((a,b) => a+b)
+    if (last && current > last) count = count+1;
+    compare_two(i+1, current);
+  } 
+}
+compare_two();
